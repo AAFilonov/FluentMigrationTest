@@ -26,8 +26,8 @@ namespace WebApplication
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
-
-            Migrations.FluentInit.init(connectionString);
+            var MigrationSqlLocations = _configuration.GetConnectionString("Migrations");
+            Migrations.Migrator.init(_configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

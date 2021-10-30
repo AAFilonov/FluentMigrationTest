@@ -1,25 +1,24 @@
 using System;
+using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using FluentMigrator.Runner;
+using Microsoft.Extensions.Configuration;
 
 namespace Migrations
 {
-    public static class FluentInit
+    public class Migrator
     {
-        public static void init(string connectionString)
+        public static void init(IConfiguration configuration)
         {
-            var serviceProvider = CreateServices(connectionString);
-
-            // Put the database update into a scope to ensure
-            // that all resources will be disposed.
+            var serviceProvider = CreateServices(configuration.GetConnectionString("DefaultConnection"));
+            
             using (var scope = serviceProvider.CreateScope())
             {
                 UpdateDatabase(scope.ServiceProvider);
             }
         }
-        
-        
-        
+
+
         /// <summary>
         /// Configure the dependency injection services
         /// </summary>
