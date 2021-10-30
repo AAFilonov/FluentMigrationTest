@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{38DFD75D-7CEF-4FC5-ADE6-BD48AF756F65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrations", "Migrations\Migrations.csproj", "{95A94C4A-AB06-4A74-82EA-6134211D475A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MigrationLayer", "MigrationLayer\MigrationLayer.csproj", "{95A94C4A-AB06-4A74-82EA-6134211D475A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

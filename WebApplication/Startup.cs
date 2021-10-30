@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FluentMigrator.Runner;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -28,14 +27,7 @@ namespace WebApplication
         {
             var connectionString = _configuration.GetConnectionString("DefaultConnection");
 
-            var serviceProvider = CreateServices(connectionString);
-
-            // Put the database update into a scope to ensure
-            // that all resources will be disposed.
-            using (var scope = serviceProvider.CreateScope())
-            {
-                UpdateDatabase(scope.ServiceProvider);
-            }
+            Migrations.FluentInit.init(connectionString);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,37 +44,6 @@ namespace WebApplication
             {
                 endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
             });
-        }
-
-
-        /// <summary>
-        /// Configure the dependency injection services
-        /// </summary>
-        private static IServiceProvider CreateServices(string connectionString)
-        {
-            return new ServiceCollection()
-                .AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb
-                    .AddSqlServer()
-                    .WithGlobalConnectionString(connectionString)
-                    .ScanIn(Migrations.ReflectionsHacks.getAssemblies()).For
-                    .Migrations())
-                // Enable logging to console in the FluentMigrator way
-                .AddLogging(lb => lb.AddFluentMigratorConsole())
-                // Build the service provider
-                .BuildServiceProvider(false);
-        }
-
-        /// <summary>
-        /// Update the database
-        /// </summary>
-        private static void UpdateDatabase(IServiceProvider serviceProvider)
-        {
-            // Instantiate the runner
-            var runner = serviceProvider.GetRequiredService<IMigrationRunner>();
-
-            // Execute the migrations
-            runner.MigrateUp();
         }
     }
 }

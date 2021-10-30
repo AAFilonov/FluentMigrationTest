@@ -13,11 +13,10 @@
 
     <ItemGroup>
         <PackageReference Include="FluentMigrator" Version="3.3.1" />
-        <PackageReference Include="FluentMigrator.MSBuild" Version="3.3.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Migrations\Migrations.csproj" />
+      <ProjectReference Include="..\MigrationLayer\MigrationLayer.csproj" />
     </ItemGroup>
 
     <UsingTask TaskName="FluentMigrator.MSBuild.Migrate" AssemblyFile="FluentMigrator.MSBuild.dll" />
