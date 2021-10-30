@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\filon\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\filon\\.nuget\\packages"
+    ]
+  }
+}

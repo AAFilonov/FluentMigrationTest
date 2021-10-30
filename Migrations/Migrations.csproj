@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FluentMigrator" Version="3.3.1" />
+      <PackageReference Include="FluentMigrator.Tools" Version="3.3.1" />
+    </ItemGroup>
+
+</Project>

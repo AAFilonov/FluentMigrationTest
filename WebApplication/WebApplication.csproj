@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <MigratorTasksDirectory>
+            $(MSBuildProjectDirectory)\packages\FluentMigrator.Tools.1.0.2.0\tools\AnyCPU\40\
+        </MigratorTasksDirectory>
+        <ConnectionString>
+            Data Source=.\SQLEXPRESS;Initial Catalog=FluentMigration;Integrated Security=True;
+        </ConnectionString>
+      
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentMigrator" Version="3.3.1" />
+        <PackageReference Include="FluentMigrator.MSBuild" Version="3.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Migrations\Migrations.csproj" />
+    </ItemGroup>
+
+    <UsingTask TaskName="FluentMigrator.MSBuild.Migrate" AssemblyFile="FluentMigrator.MSBuild.dll" />
+
+    <Target Name="Migrate">
+        <Message Text="Starting FluentMigrator Migration" />
+
+        <!-- Important: Target must be your Migrations assembly name, not your dll file name.  The dll must be located where dotnet assembly loader can find it (usually same folder as the fluentmigrator dlls) -->
+
+        <Migrate Database="sqlserver" Connection="Data Source=(local)\sqlexpress;Database=yourDB;Trusted_Connection=true" LoggingEnabled="true" Target="Your.Migrations.AssemblyName">
+        </Migrate>
+    </Target>
+</Project>
